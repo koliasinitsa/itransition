@@ -1,4 +1,6 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -14,6 +16,10 @@ const Header: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
 
+    const navigate = useNavigate();
+
+
+
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -22,7 +28,9 @@ const Header: React.FC = () => {
         setAnchorEl(null);
     };
 
-
+    const handleLoginClick = () => {
+        navigate('/AuthForm');  // Перенаправление на компонент AuthForm
+    };
 
 
     return (
@@ -62,7 +70,7 @@ const Header: React.FC = () => {
                         <MenuItem onClick={handleClose}>Rus</MenuItem>
                     </Menu>
 
-                    <Button color="inherit" style={{ marginLeft: '10px' }}>
+                    <Button color="inherit" style={{ marginLeft: '10px' }} onClick={handleLoginClick}>
                         Login
                     </Button>
                 </div>

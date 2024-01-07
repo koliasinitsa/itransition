@@ -1,18 +1,14 @@
+// App.tsx
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AppRoutes from './components/Routes/Routes';
 
-import './App.css'
-import Header from './components/Header/header';
-
-function App() {
-
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <Header />
-      <div className="content">
-
-      </div>
-    </div>
+    <Router>
+      <AppRoutes />
+    </Router>
   );
 }
 
-
-export default App
+export default App;
