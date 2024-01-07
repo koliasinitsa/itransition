@@ -1,14 +1,18 @@
 
 import './App.css'
-import AuthForm from './authForm';
+import Header from './components/Header/header';
 
 function App() {
 
   return (
     <div className="App">
-      <AuthForm /> {/* Отображение компонента регистрации */}
+      <Header />
+      <div className="content">
+
+      </div>
     </div>
   );
 }
+
 
 export default App
