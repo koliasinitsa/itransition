@@ -11,29 +11,46 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import SearchPanel from './Search-panel/search-panel';
 
 const Header: React.FC = () => {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
+    const [anchorElLang, setAnchorElLang] = React.useState<null | HTMLElement>(null);
+    const [languageMenuOpen, setLanguageMenuOpen] = React.useState(false);
+
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const [userMenuOpen, setUserMenuOpen] = React.useState(false);
+
 
     const navigate = useNavigate();
 
 
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
+        setAnchorElLang(event.currentTarget);
+        setLanguageMenuOpen(true);
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
+    const handleCloseLanguageMenu = () => {
+        setAnchorElLang(null);
+        setLanguageMenuOpen(false);
     };
 
+    const handleUserMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElUser(event.currentTarget);
+        setUserMenuOpen(true);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+        setUserMenuOpen(false);
+    };
+
+    const isAuthenticated = true
     const handleLoginClick = () => {
         navigate('/AuthForm');  // Перенаправление на компонент AuthForm
     };
-
 
     return (
         <AppBar position="fixed">
@@ -70,19 +87,43 @@ const Header: React.FC = () => {
 
                     <Menu
                         id="language-menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
+                        anchorEl={anchorElLang}
+                        open={languageMenuOpen}
+                        onClose={handleCloseLanguageMenu}
                     >
-                        <MenuItem onClick={handleClose}>Eng</MenuItem>
-                        <MenuItem onClick={handleClose}>Rus</MenuItem>
+                        <MenuItem onClick={handleCloseLanguageMenu}>Eng</MenuItem>
+                        <MenuItem onClick={handleCloseLanguageMenu}>Rus</MenuItem>
                     </Menu>
 
 
 
-                    <Button color="inherit" style={{ marginLeft: '10px' }} onClick={handleLoginClick}>
-                        Login
-                    </Button>
+                    {/* Проверка авторизации */}
+                    {isAuthenticated ? (
+                        <IconButton
+                            color="inherit"
+                            aria-label="account of current user"
+                            aria-controls="user-menu"
+                            aria-haspopup="true"
+                            onClick={handleUserMenuClick}
+                        >
+                            <AccountCircleIcon />
+                        </IconButton>
+                    ) : (
+                        <Button color="inherit" style={{ marginLeft: '10px' }} onClick={handleLoginClick}>
+                            Login
+                        </Button>
+                    )}
+
+                    <Menu
+                        id="user-menu"
+                        anchorEl={anchorElUser}
+                        open={userMenuOpen}
+                        onClose={handleCloseUserMenu}
+                    >
+                        <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
+                        <MenuItem onClick={handleCloseUserMenu}>users</MenuItem>
+                        <MenuItem onClick={handleCloseUserMenu}>Logout</MenuItem>
+                    </Menu>
                 </div>
             </Toolbar>
         </AppBar>
