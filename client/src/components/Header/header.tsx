@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import SearchPanel from './Search-panel/search-panel';
+import SearchPanel from './Search-panel/SearchPanel';
 
 const Header: React.FC = () => {
     const [anchorElLang, setAnchorElLang] = React.useState<null | HTMLElement>(null);
@@ -120,8 +120,12 @@ const Header: React.FC = () => {
                         open={userMenuOpen}
                         onClose={handleCloseUserMenu}
                     >
-                        <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
-                        <MenuItem onClick={handleCloseUserMenu}>users</MenuItem>
+                        <Link to="/Profile" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
+                        </Link>
+                        <Link to="/Users" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <MenuItem onClick={handleCloseUserMenu}>Users</MenuItem>
+                        </Link>
                         <MenuItem onClick={handleCloseUserMenu}>Logout</MenuItem>
                     </Menu>
                 </div>

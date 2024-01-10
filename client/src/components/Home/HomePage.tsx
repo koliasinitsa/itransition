@@ -1,6 +1,6 @@
 // HomePage.tsx
 import React from 'react';
-import Header from '../Header/header';
+import Header from '../Header/Header';
 
 const HomePage: React.FC = () => {
   return (
