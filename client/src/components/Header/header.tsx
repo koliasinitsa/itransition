@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 
-import SearchPanel from '../Search-panel/search-panel';
+import SearchPanel from './Search-panel/search-panel';
 
 const Header: React.FC = () => {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
