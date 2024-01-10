@@ -6,6 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
+import Header from '../Header/Header';
 
 interface User {
   id: number;
@@ -46,49 +47,52 @@ const UsersTable: React.FC = () => {
   };
 
   return (
-    <>
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{ marginRight: '10px' }}
-        onClick={() => console.log('Добавить в админы')}
-      >
-        Добавить в админы
-      </Button>
+    <div >
+      <Header />
+      <div style={{ marginTop: '100px' }}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ marginRight: '10px' }}
+          onClick={() => console.log('Добавить в админы')}
+        >
+          Добавить в админы
+        </Button>
 
-      <Button
-        variant="contained"
-        color="error"
-        sx={{ marginRight: '10px' }}
-        onClick={() => console.log('Удалить из админов')}
-      >
-        Удалить из админов
-      </Button>
-      <Button
-        variant="contained"
-        color="warning"
-        sx={{ marginRight: '10px' }}
-        onClick={() => console.log('Блокировать')}
-      >
-        Блокировать
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        sx={{ marginRight: '10px' }}
-        onClick={() => console.log('Разблокировать')}
-      >
-        Разблокировать
-      </Button>
-      <Button
-        variant="contained"
-        color="error"
-        sx={{ marginRight: '10px' }}
-        onClick={() => console.log('Удалить')}
-      >
-        Удалить
-      </Button>
-      
+        <Button
+          variant="contained"
+          color="error"
+          sx={{ marginRight: '10px' }}
+          onClick={() => console.log('Удалить из админов')}
+        >
+          Удалить из админов
+        </Button>
+        <Button
+          variant="contained"
+          color="warning"
+          sx={{ marginRight: '10px' }}
+          onClick={() => console.log('Блокировать')}
+        >
+          Блокировать
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{ marginRight: '10px' }}
+          onClick={() => console.log('Разблокировать')}
+        >
+          Разблокировать
+        </Button>
+        <Button
+          variant="contained"
+          color="error"
+          sx={{ marginRight: '10px' }}
+          onClick={() => console.log('Удалить')}
+        >
+          Удалить
+        </Button>
+      </div>
+
       <Table>
         <TableHead>
           <TableRow>
@@ -125,7 +129,7 @@ const UsersTable: React.FC = () => {
           ))}
         </TableBody>
       </Table>
-    </>
+    </div>
   );
 }
 
