@@ -10,26 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
+// schema.prisma
 
 model User {
-  id      String    @id @default(uuid()) @db.Uuid
-  username  String  @unique
-  password  String
-  email     String  @unique
-  status    UserStatus? @default(active)
-  role      UserRole  @default(user)
-
-  collections Collection[]
-
- // Обратная связь для лайков пользователя
-  likes Like[] @relation("user_likes", fields: [id], references: [user_id])
-
-  // Обратная связь для комментариев пользователя
-  comments Comment[]  @relation(fields: [id], references: [user_id])
-
-  // Обратная связь для лайков пользователя
-  likes Like[] @relation("user_likes", fields: [id], references: [user_id])
+  id         String       @id @default(uuid())
+  username   String       @unique
+  password   String
+  email      String       @unique
+  status     UserStatus   @default(active)
+  role       UserRole     @default(user)
+  Collection Collection[]
+  Comment    Comment[]
+  Like       Like[]
 }
 
 enum UserStatus {
@@ -44,125 +36,108 @@ enum UserRole {
 }
 
 model Category {
-  id             String    @id @default(uuid()) @db.Uuid
-  category_name  String    @unique
+  id            String       @id @default(uuid())
+  category_name String       @unique
+  Collection    Collection[]
 }
 
-
-
 model Collection {
-  id               String     @id @default(uuid()) @db.Uuid
-  name             String
-  description      String?
-  image_url        String?
+  id          String   @id @default(uuid())
+  name        String   @db.VarChar(255)
+  description String?  @db.Text
+  image_url   String?  @db.VarChar(1000)
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id     String   @db.Uuid
+  category    Category @relation(fields: [category_id], references: [id])
+  category_id String   @db.Uuid
 
-  user             User       @relation(fields: [user_id], references: [id])
-  user_id          String     @db.Uuid
-  items             Item[]  @relation("collection", fields: [id], references: [collection_id])
+  custom_string1_state Boolean @default(false)
+  custom_string1_name  String? @db.VarChar(255)
+  custom_string2_state Boolean @default(false)
+  custom_string2_name  String? @db.VarChar(255)
+  custom_string3_state Boolean @default(false)
+  custom_string3_name  String? @db.VarChar(255)
 
-  custom_string1_state    Boolean?  @default(false)
-  custom_string1_name     String?
-  custom_string2_state    Boolean?  @default(false)
-  custom_string2_name     String?
-  custom_string3_state    Boolean?  @default(false)
-  custom_string3_name     String?
+  custom_int1_state Boolean @default(false)
+  custom_int1_name  String? @db.VarChar(255)
+  custom_int2_state Boolean @default(false)
+  custom_int2_name  String? @db.VarChar(255)
+  custom_int3_state Boolean @default(false)
+  custom_int3_name  String? @db.VarChar(255)
 
-  custom_int1_state       Boolean?  @default(false)
-  custom_int1_name        String?
-  custom_int2_state       Boolean?  @default(false)
-  custom_int2_name        String?
-  custom_int3_state       Boolean?  @default(false)
-  custom_int3_name        String?
+  custom_text1_state Boolean @default(false)
+  custom_text1_name  String? @db.VarChar(255)
+  custom_text2_state Boolean @default(false)
+  custom_text2_name  String? @db.VarChar(255)
+  custom_text3_state Boolean @default(false)
+  custom_text3_name  String? @db.VarChar(255)
 
-  custom_text1_state      Boolean?  @default(false)
-  custom_text1_name       String?
-  custom_text2_state      Boolean?  @default(false)
-  custom_text2_name       String?
-  custom_text3_state      Boolean?  @default(false)
-  custom_text3_name       String?
+  custom_boolean1_state Boolean @default(false)
+  custom_boolean1_name  String? @db.VarChar(255)
+  custom_boolean2_state Boolean @default(false)
+  custom_boolean2_name  String? @db.VarChar(255)
+  custom_boolean3_state Boolean @default(false)
+  custom_boolean3_name  String? @db.VarChar(255)
 
-  custom_boolean1_state   Boolean?  @default(false)
-  custom_boolean1_name    String?
-  custom_boolean2_state   Boolean?  @default(false)
-  custom_boolean2_name    String?
-  custom_boolean3_state   Boolean?  @default(false)
-  custom_boolean3_name    String?
-
-  custom_date1_state      Boolean?  @default(false)
-  custom_date1_name       String?
-  custom_date2_state      Boolean?  @default(false)
-  custom_date2_name       String?
-  custom_date3_state      Boolean?  @default(false)
-  custom_date3_name       String?
+  custom_date1_state Boolean @default(false)
+  custom_date1_name  String? @db.VarChar(255)
+  custom_date2_state Boolean @default(false)
+  custom_date2_name  String? @db.VarChar(255)
+  custom_date3_state Boolean @default(false)
+  custom_date3_name  String? @db.VarChar(255)
+  Item               Item[]
 }
 
 model Tag {
-  id      String  @id @default(uuid()) @db.Uuid
-  tag_name String  @unique
-  items   Item[]  @relation("tags", fields: [id], references: [tags_id])
+  id       String @id @default(uuid())
+  tag_name String @unique
+
+  items Item[] @relation("tags")
 }
 
-
-
-// prisma/schema.prisma
-
 model Item {
-  id                   String     @id @default(uuid()) @db.Uuid
-  name                 String
+  id            String     @id @default(uuid())
+  name          String     @db.VarChar(255)
+  tags          Tag[]      @relation("tags")
+  collection    Collection @relation(fields: [collection_id], references: [id])
+  collection_id String     @db.Uuid
 
-  tags             Tag?         @relation("tags", fields: [tags_id], references: [id])
-  tags_id          String?      @db.Uuid
-  collection       Collection   @relation("collection", fields: [collection_id], references: [id])
-  collection_id    String       @db.Uuid
+  custom_string1_value String? @db.VarChar(255)
+  custom_string2_value String? @db.VarChar(255)
+  custom_string3_value String? @db.VarChar(255)
 
-  // Обратная связь для лайков элемента
-  itemLikes Like[] @relation("item_likes", fields: [id], references: [item_id])
+  custom_int1_value Int?
+  custom_int2_value Int?
+  custom_int3_value Int?
 
-  custom_string1_value String?
-  custom_string2_value String?
-  custom_string3_value String?
-
-  custom_int1_value    Int?
-  custom_int2_value    Int?
-  custom_int3_value    Int?
-
-  custom_text1_value   String?
-  custom_text2_value   String?
-  custom_text3_value   String?
+  custom_text1_value String? @db.Text
+  custom_text2_value String? @db.Text
+  custom_text3_value String? @db.Text
 
   custom_boolean1_value Boolean?
   custom_boolean2_value Boolean?
   custom_boolean3_value Boolean?
 
-  custom_date1_value   DateTime?
-  custom_date2_value   DateTime?
-  custom_date3_value   DateTime?
-
-  // Обратная связь для лайков элемента
-  likes Like[] @relation("item_likes", fields: [id], references: [item_id])
+  custom_date1_value DateTime?
+  custom_date2_value DateTime?
+  custom_date3_value DateTime?
+  Comment            Comment[]
+  Like               Like[]
 }
-
-
-
 
 model Comment {
-  id        String    @id @default(uuid()) @db.Uuid
-  content   String    @db.Text
-  user      User      @relation(fields: [user_id], references: [id])
-  user_id   String    @db.Uuid
-  item      Item      @relation(fields: [item_id], references: [id])
-  item_id   String    @db.Uuid
+  id      String @id @default(uuid())
+  content String
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String @db.Uuid
+  item    Item   @relation(fields: [item_id], references: [id])
+  item_id String @db.Uuid
 }
 
-
-
-
 model Like {
-  id      String  @id @default(uuid()) @db.Uuid
-  user    User    @relation("user_likes", fields: [user_id], references: [id])
-  user_id String  @db.Uuid
-  item    Item    @relation("item_likes", fields: [item_id], references: [id])
-  item_id String  @db.Uuid
-
-  @@unique([user_id, item_id])
+  id      String @id @default(uuid())
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String @db.Uuid
+  item    Item   @relation(fields: [item_id], references: [id])
+  item_id String @db.Uuid
 }
