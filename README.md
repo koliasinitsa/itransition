@@ -1,6 +1,9 @@
 "# itransition" 
 
-Коллекционер - веб-приложение, разработанное с использованием React, Redux, TypeScript на фронтенде, и Express, TypeScript, PostgreSQL, Prisma на бэкенде. Предназначено для управления личными коллекциями, такими как книги, марки, виски и другие.
-
-front-end: react, redux, typescript
-back-end: express, typescript, postgresql, prisma
+Коллекционер - веб-приложение, разработанное  для управления личными коллекциями, такими как книги, марки, виски и другие.
+<br/>
+Коллекции хранят айтемы, каждая коллекция содержит разный набор полей, и эти поля используются в айтемах.
+<br/>
+front-end: React, Redux, TypeScript 
+<br/>
+back-end: Express, TypeScript, PostgreSQL, Prisma
