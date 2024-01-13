@@ -5,7 +5,7 @@ import { PrismaClient, user_status, user_role } from '@prisma/client';
 import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
-//const saltRounds = 10;
+const saltRounds = 10;
 
 export const registerUserService = async (username: string, email: string, password: string) => {
   try {
@@ -13,7 +13,8 @@ export const registerUserService = async (username: string, email: string, passw
     //const salt = bcrypt.genSaltSync(saltRounds);
 
     // Хеширование пароля с использованием уникальной соли
-    //const hashedPassword = await bcrypt.hash(password, salt);
+    //const hashedPassword = await bcrypt.hash(password + salt, salt);
+    //способ без соли const hashedPassword = await bcrypt.hash(password, 10);
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.users.create({
