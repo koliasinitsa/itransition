@@ -75,6 +75,14 @@ CREATE TABLE "Tags" (
 );
 
 -- CreateTable
+CREATE TABLE "ItemTags" (
+    "tag_id" INTEGER NOT NULL,
+    "item_id" INTEGER NOT NULL,
+
+    CONSTRAINT "ItemTags_pkey" PRIMARY KEY ("tag_id","item_id")
+);
+
+-- CreateTable
 CREATE TABLE "Items" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
@@ -117,12 +125,6 @@ CREATE TABLE "Likes" (
     CONSTRAINT "Likes_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "_tags" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
 
@@ -132,17 +134,17 @@ CREATE UNIQUE INDEX "Categories_category_name_key" ON "Categories"("category_nam
 -- CreateIndex
 CREATE UNIQUE INDEX "Tags_tag_name_key" ON "Tags"("tag_name");
 
--- CreateIndex
-CREATE UNIQUE INDEX "_tags_AB_unique" ON "_tags"("A", "B");
-
--- CreateIndex
-CREATE INDEX "_tags_B_index" ON "_tags"("B");
-
 -- AddForeignKey
 ALTER TABLE "Collections" ADD CONSTRAINT "Collections_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Collections" ADD CONSTRAINT "Collections_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "Categories"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ItemTags" ADD CONSTRAINT "ItemTags_tag_id_fkey" FOREIGN KEY ("tag_id") REFERENCES "Tags"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ItemTags" ADD CONSTRAINT "ItemTags_item_id_fkey" FOREIGN KEY ("item_id") REFERENCES "Items"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Items" ADD CONSTRAINT "Items_collection_id_fkey" FOREIGN KEY ("collection_id") REFERENCES "Collections"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -158,9 +160,3 @@ ALTER TABLE "Likes" ADD CONSTRAINT "Likes_user_id_fkey" FOREIGN KEY ("user_id") 
 
 -- AddForeignKey
 ALTER TABLE "Likes" ADD CONSTRAINT "Likes_item_id_fkey" FOREIGN KEY ("item_id") REFERENCES "Items"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_tags" ADD CONSTRAINT "_tags_A_fkey" FOREIGN KEY ("A") REFERENCES "Items"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "_tags" ADD CONSTRAINT "_tags_B_fkey" FOREIGN KEY ("B") REFERENCES "Tags"("id") ON DELETE CASCADE ON UPDATE CASCADE;

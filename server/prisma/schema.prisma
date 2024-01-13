@@ -95,16 +95,26 @@ model Collections {
 model Tags {
   id         Int  @id @default(autoincrement())
   tag_name String @unique
+  items      ItemTags[]
+}
 
-  items Items[] @relation("tags")
+model ItemTags {
+  tag_id Int
+  item_id Int
+
+  tags    Tags @relation(fields: [tag_id], references: [id])
+  items   Items @relation(fields: [item_id], references: [id])
+
+  @@id([tag_id, item_id])
 }
 
 model Items {
-  id         Int    @id @default(autoincrement())
-  name          String
-  tags          Tags[]      @relation("tags")
-  collection    Collections @relation(fields: [collection_id], references: [id])
-  collection_id Int 
+  id             Int    @id @default(autoincrement())
+  name           String
+  tags           ItemTags[]
+  collection     Collections @relation(fields: [collection_id], references: [id])
+  collection_id  Int 
+
 
   custom_string1_value String? @db.VarChar(255)
   custom_string2_value String? @db.VarChar(255)
@@ -128,6 +138,9 @@ model Items {
   Comment            Comments[]
   Like               Likes[]
 }
+
+
+
 
 model Comments {
   id         Int    @id @default(autoincrement())
