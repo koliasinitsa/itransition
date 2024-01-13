@@ -1,25 +1,34 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, ErrorRequestHandler } from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
 import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
 
+
+import authRoutes from './routes/AuthRoutes';
 
 dotenv.config(); // Загрузка переменных окружения из файла .env
 
 
 const prisma = new PrismaClient();
 const app = express();
-const PORT = 3000;
+//const PORT = process.env.PORT || 3000;
+
+// Middlewares
+app.use(cors());
+app.use(helmet());
+app.use(morgan('combined'));
+app.use(express.json());
 
 
+// Routes
+app.use('/auth', authRoutes);
 
-app.get('/', async (req: Request, res: Response) => {
-  const users = await prisma.user.findMany();
-  res.json(users);
-  res.send('Hello, TypeScript with  Express!');
+// Error handling middleware
+app.use((err: ErrorRequestHandler, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(err);
+  res.status(500).json({ error: 'Internal Server Error' });
 });
 
-
-
-app.listen(PORT, () => {
-  console.log(`Server is running  on http://localhost:${PORT}`);
-});
+export default app;

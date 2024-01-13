@@ -1,7 +1,7 @@
 -- Создание таблицы Пользователей с ролями и UUID
 CREATE TABLE Users (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-    username VARCHAR(255) UNIQUE NOT NULL,
+    username VARCHAR(255)  NOT NULL,
     password TEXT NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     status VARCHAR(50) DEFAULT 'active' CHECK (status IN ('active', 'blocked', 'deleted')),
