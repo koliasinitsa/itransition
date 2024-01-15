@@ -3,9 +3,14 @@
 // src/services/authService.ts
 import { PrismaClient, user_status, user_role } from '@prisma/client';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const prisma = new PrismaClient();
+
 const saltRounds = 10;
+const JWT_SECRET: string = process.env.JWT_SECRET || '';
 
 export const registerUserService = async (username: string, email: string, password: string) => {
   try {
@@ -46,8 +51,19 @@ export const authenticateUserService = async (email: string, password: string) =
     const authenticated = await bcrypt.compare(password, user.password);
 
     if (authenticated) {
-      // Здесь вы можете вернуть данные пользователя или токен (если используете JWT)
-      return user;
+      // Создание JWT токена с информацией о роли
+      const token = jwt.sign(
+        {
+          userId: user.id,
+          email: user.email,
+          role: user.role, // Добавляем информацию о роли пользователя
+        },
+        JWT_SECRET,
+        { expiresIn: '1h' }
+      );
+
+      // Возвращение данных пользователя и токена
+      return { user, token };
     } else {
       throw new Error('Invalid password');
     }

@@ -11,7 +11,7 @@ import authRoutes from './routes/AuthRoutes';
 dotenv.config(); // Загрузка переменных окружения из файла .env
 
 
-const prisma = new PrismaClient();
+//const prisma = new PrismaClient();
 const app = express();
 //const PORT = process.env.PORT || 3000;
 
