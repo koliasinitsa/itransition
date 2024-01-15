@@ -42,12 +42,12 @@ const Header: React.FC = () => {
         setUserMenuOpen(true);
     };
 
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
-        setUserMenuOpen(false);
-    };
+    // const handleCloseUserMenu = () => {
+    //     setAnchorElUser(null);
+    //     setUserMenuOpen(false);
+    // };
 
-    const isAuthenticated = true
+    const isAuthenticated = true // есть пользователь или нет, заглушка
     const handleLoginClick = () => {
         navigate('/AuthForm');  // Перенаправление на компонент AuthForm
     };
@@ -118,15 +118,15 @@ const Header: React.FC = () => {
                         id="user-menu"
                         anchorEl={anchorElUser}
                         open={userMenuOpen}
-                        onClose={handleCloseUserMenu}
+                        // onClose={handleCloseUserMenu}
                     >
                         <Link to="/Profile" style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
+                            <MenuItem>Profile</MenuItem>
                         </Link>
                         <Link to="/Users" style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <MenuItem onClick={handleCloseUserMenu}>Users</MenuItem>
+                            <MenuItem >Users</MenuItem>
                         </Link>
-                        <MenuItem onClick={handleCloseUserMenu}>Logout</MenuItem>
+                        <MenuItem onClick={handleLoginClick}>Logout</MenuItem>
                     </Menu>
                 </div>
             </Toolbar>
