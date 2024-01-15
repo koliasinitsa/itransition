@@ -9,13 +9,12 @@ const saltRounds = 10;
 
 export const registerUserService = async (username: string, email: string, password: string) => {
   try {
-    // Генерация уникальной соли для каждого пользователя
-    //const salt = bcrypt.genSaltSync(saltRounds);
+    // Генерация рандомной соли для каждого пользователя
+    const salt = bcrypt.genSaltSync(saltRounds);
 
-    // Хеширование пароля с использованием уникальной соли
-    //const hashedPassword = await bcrypt.hash(password + salt, salt);
+    // Хеширование пароля с использованием рандомной соли
+    const hashedPassword = await bcrypt.hash(password, salt);
     //способ без соли const hashedPassword = await bcrypt.hash(password, 10);
-    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.users.create({
       data: {
@@ -31,5 +30,29 @@ export const registerUserService = async (username: string, email: string, passw
   } catch (error) {
     console.error('Error in registerUserService:', error);
     throw new Error('Failed to register user.');
+  }
+};
+
+export const authenticateUserService = async (email: string, password: string) => {
+  try {
+    // Получение пользователя из базы данных по электронной почте
+    const user = await prisma.users.findUnique({ where: { email } });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // Использование bcrypt.compare для сравнения паролей
+    const authenticated = await bcrypt.compare(password, user.password);
+
+    if (authenticated) {
+      // Здесь вы можете вернуть данные пользователя или токен (если используете JWT)
+      return user;
+    } else {
+      throw new Error('Invalid password');
+    }
+  } catch (error) {
+    console.error('Error in authenticateUserService:', error);
+    throw new Error('Authentication failed');
   }
 };
