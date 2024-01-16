@@ -1,19 +1,11 @@
-// src/Hooks/translationHooks.ts
+// src/hooks/translationHooks.ts
+import i18n from '../services/i18n';
 
-import { useEffect, useState } from 'react';
-import translationService from '../services/translationService';
+export const useTranslation = () => {
+  const translate = (key: string) => i18n.t(key);
 
-export const useTranslations = () => {
-  const [translations, setTranslations] = useState<{ [key: string]: string }>({});
+  // Добавляем функцию для получения всех переводов
+  const getAllTranslations = () => i18n.getResourceBundle(i18n.language, 'translation');
 
-  useEffect(() => {
-    const fetchTranslations = async () => {
-      const loadedTranslations = await translationService.loadTranslations('/src/assets/translations.json');
-      setTranslations(loadedTranslations);
-    };
-
-    fetchTranslations();
-  }, []);
-
-  return translations;
+  return { translate, getAllTranslations };
 };

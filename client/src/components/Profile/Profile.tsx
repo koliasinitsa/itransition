@@ -1,17 +1,19 @@
+// src/components/Profile.tsx
+// Ваши компоненты
 import React from 'react';
-import { useTranslations } from '../../Hooks/translationHooks';
-
+import { useTranslation } from 'react-i18next';
 
 const Profile: React.FC = () => {
-  const translations = useTranslations();
+  const { t } = useTranslation();
 
-  console.log('Translations:', translations);
   return (
     <div>
-      <p>{translations.hello}</p>
-      Profile
+      <p>{t('hello')}</p>
+      <p>{t('world')}</p>
+      <p>{t('greeting')}</p>
+      <p>прпарапр</p>
     </div>
   );
-}
+};
 
 export default Profile;
