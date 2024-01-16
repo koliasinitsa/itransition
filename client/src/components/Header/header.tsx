@@ -14,6 +14,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import SearchPanel from './Search-panel/SearchPanel';
+import LanguageSelector from './LanguageSelector';
 
 const Header: React.FC = () => {
     const [anchorElLang, setAnchorElLang] = React.useState<null | HTMLElement>(null);
@@ -42,10 +43,10 @@ const Header: React.FC = () => {
         setUserMenuOpen(true);
     };
 
-    // const handleCloseUserMenu = () => {
-    //     setAnchorElUser(null);
-    //     setUserMenuOpen(false);
-    // };
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+        setUserMenuOpen(false);
+    };
 
     const isAuthenticated = true // есть пользователь или нет, заглушка
     const handleLoginClick = () => {
@@ -85,7 +86,8 @@ const Header: React.FC = () => {
                         <LanguageIcon />
                     </IconButton>
 
-                    <Menu
+                    <LanguageSelector />
+                    {/* <Menu
                         id="language-menu"
                         anchorEl={anchorElLang}
                         open={languageMenuOpen}
@@ -93,7 +95,7 @@ const Header: React.FC = () => {
                     >
                         <MenuItem onClick={handleCloseLanguageMenu}>Eng</MenuItem>
                         <MenuItem onClick={handleCloseLanguageMenu}>Rus</MenuItem>
-                    </Menu>
+                    </Menu> */}
 
 
 
@@ -118,10 +120,10 @@ const Header: React.FC = () => {
                         id="user-menu"
                         anchorEl={anchorElUser}
                         open={userMenuOpen}
-                        // onClose={handleCloseUserMenu}
+                        onClose={handleCloseUserMenu}
                     >
                         <Link to="/Profile" style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <MenuItem>Profile</MenuItem>
+                            <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
                         </Link>
                         <Link to="/Users" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <MenuItem >Users</MenuItem>

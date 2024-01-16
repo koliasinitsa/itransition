@@ -22,4 +22,8 @@ i18n
     },
   });
 
-export default i18n;
+  export const changeLanguage = (language: string) => {
+    i18n.changeLanguage(language);
+  };
+  
+  export default i18n;

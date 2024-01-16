@@ -6,6 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
+import { useTranslation } from 'react-i18next';
 
 import Header from '../Header/Header';
 
@@ -28,6 +29,7 @@ const users: User[] = [
 
 
 const UsersTable: React.FC = () => {
+  const { t } = useTranslation();
   const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
 
   const handleSelectAll = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +59,8 @@ const UsersTable: React.FC = () => {
           sx={{ marginRight: '10px' }}
           onClick={() => console.log('Добавить в админы')}
         >
-          Добавить в админы
+          {t('addToAdmin')}
+          
         </Button>
 
         <Button
