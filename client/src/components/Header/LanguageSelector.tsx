@@ -1,7 +1,8 @@
 // src/components/LanguageSelector.tsx
 import React, { useState } from 'react';
 import { changeLanguage } from '../../services/i18n';
-import { Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem } from '@mui/material';
+import LanguageIcon from '@mui/icons-material/Language';
 
 const LanguageSelector: React.FC = () => {
     const [anchorElLang, setAnchorElLang] = useState<null | HTMLElement>(null);
@@ -22,20 +23,27 @@ const LanguageSelector: React.FC = () => {
   
     return (
       <div>
-        {/* Кнопка или другой элемент для открытия меню */}
-        <button onClick={handleClickLanguageMenu}>Open Language Menu</button>
-  
-        {/* Меню */}
-        <Menu
-          id="language-menu"
-          anchorEl={anchorElLang}
-          open={languageMenuOpen}
-          onClose={handleCloseLanguageMenu}
-        >
-          <MenuItem onClick={() => handleLanguageChange('en')}>Eng</MenuItem>
-          <MenuItem onClick={() => handleLanguageChange('ru')}>Rus</MenuItem>
-        </Menu>
-      </div>
+      {/* Используем IconButton с иконкой */}
+      <IconButton
+        color="inherit"
+        aria-label="language"
+        aria-controls="language-menu"
+        aria-haspopup="true"
+        onClick={handleClickLanguageMenu}
+      >
+        <LanguageIcon />
+      </IconButton>
+
+      <Menu
+        id="language-menu"
+        anchorEl={anchorElLang}
+        open={languageMenuOpen}
+        onClose={handleCloseLanguageMenu}
+      >
+        <MenuItem onClick={() => handleLanguageChange('en')}>Eng</MenuItem>
+        <MenuItem onClick={() => handleLanguageChange('ru')}>Rus</MenuItem>
+      </Menu>
+    </div>
     );
   };
   
