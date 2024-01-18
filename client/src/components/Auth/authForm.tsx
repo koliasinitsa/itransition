@@ -1,16 +1,9 @@
-// ваш компонент AuthForm.tsx
-import React, { useState, FormEvent, ChangeEvent, useEffect } from 'react';
-
-import {
-  Button,
-  TextField,
-  Typography,
-  Container,
-  Link,
-  Box,
-} from '@mui/material';
-import { registerUser } from '../../services/apiClient';
+import React, { useState,  } from 'react';
+import { Container, Box, Typography, Link } from '@mui/material';
+import LoginForm from './LoginForm';
+import RegistrationForm from './RegistrationForm';
 import CustomAlert from '../Alert/Alert';
+import { loginUser, registerUser } from '../../services/apiClient';
 
 interface FormData {
   username?: string;
@@ -18,69 +11,64 @@ interface FormData {
   password: string;
 }
 
+interface AlertData {
+  open: boolean;
+  severity: 'error' | 'success' | 'info';
+  message: string;
+}
+
+// ...
+
 const AuthForm: React.FC = () => {
   const [isRegister, setIsRegister] = useState<boolean>(false);
-  const [formData, setFormData] = useState<FormData>({
-    username: '',
-    email: '',
-    password: '',
-  });
-
-  const resetForm = () => {
-    return {
-      username: '',
-      email: '',
-      password: '',
-    };
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const [alertData, setAlertData] = useState({
+  const [alertData, setAlertData] = useState<AlertData>({
     open: false,
-    severity: 'success' as 'success' | 'error',
+    severity: 'info',
     message: '',
   });
 
   const handleCloseAlert = () => {
-    setAlertData((prevData) => ({ ...prevData, open: false }));
+    setAlertData((prevAlertData) => ({
+      ...prevAlertData,
+      open: false,
+    }));
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  
+  const handleRegistrationSubmit = async (formData: FormData) => {
     try {
+      // Вызываем функцию registerUser из вашего сервиса с данными formData
       await registerUser(formData);
-  
       setAlertData({
         open: true,
         severity: 'success',
-        message: 'User registered successfully',
+        message: 'Registration successful!',
       });
-  
-      // Очистить форму
-      setFormData(resetForm);
-    } catch (error: any) {
+    } catch (error) {
       setAlertData({
         open: true,
         severity: 'error',
-        message: 'Error during registration. Please form again.',
+        message: 'Error during registration. Please check your credentials and try again.',
       });
     }
   };
 
-  useEffect(() => {
-    setAlertData({
-      open: false,
-      severity: 'success',
-      message: '',
-    });
-  }, [isRegister]);
+  const handleLoginSubmit = async (formData: FormData) => {
+    try {
+      // Вызываем функцию loginUser из вашего сервиса с данными formData
+      await loginUser(formData.email, formData.password);
+      setAlertData({
+        open: true,
+        severity: 'success',
+        message: 'Login successful!',
+      });
+    } catch (error) {
+      setAlertData({
+        open: true,
+        severity: 'error',
+        message: 'Login error. Please check your credentials and try again.',
+      });
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -95,70 +83,29 @@ const AuthForm: React.FC = () => {
         <Typography component="h1" variant="h5">
           {isRegister ? 'Регистрация' : 'Вход'}
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-          {isRegister && (
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Имя"
-              name="username"
-              autoComplete="username"
-              value={formData.username}
-              onChange={handleChange}
-            />
-          )}
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            label="Email адрес"
-            name="email"
-            type="email"
-            autoComplete="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            label="Пароль"
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            {isRegister ? 'Зарегистрироваться' : 'Войти'}
-          </Button>
-          <Link
-            component="button"
-            variant="body2"
-            onClick={() => setIsRegister(!isRegister)}
-          >
-            {isRegister
-              ? 'Уже есть аккаунт? Войти'
-              : 'Нет аккаунта? Зарегистрироваться'}
-          </Link>
+        {isRegister ? (
+          <RegistrationForm onSubmit={handleRegistrationSubmit} />
+        ) : (
+          <LoginForm onSubmit={handleLoginSubmit} />
+        )}
+        <Link
+          component="button"
+          variant="body2"
+          onClick={() => setIsRegister(!isRegister)}
+        >
+          {isRegister ? 'Уже есть аккаунт? Войти' : 'Нет аккаунта? Зарегистрироваться'}
+        </Link>
 
-          {/* Добавляем компонент для вывода alert'ов */}
-          <CustomAlert
-            open={alertData.open}
-            severity={alertData.severity}
-            message={alertData.message}
-            onClose={handleCloseAlert}
-          />
-        </Box>
+        <CustomAlert
+          open={alertData.open}
+          severity={alertData.severity}
+          message={alertData.message}
+          onClose={handleCloseAlert}
+        />
       </Box>
     </Container>
   );
 };
 
 export default AuthForm;
+

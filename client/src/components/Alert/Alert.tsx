@@ -5,7 +5,7 @@ import { FC } from 'react';
 
 interface AlertProps {
   open: boolean;
-  severity: 'success' | 'error';
+  severity: 'success' | 'error' | 'info';
   message: string;
   onClose: () => void;
 }
@@ -13,7 +13,7 @@ interface AlertProps {
 const CustomAlert: FC<AlertProps> = ({ open, severity, message, onClose }) => {
   return (
     <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>
-      <Alert severity={severity} onClose={onClose}>
+      <Alert severity={severity } onClose={onClose}>
         {message}
       </Alert>
     </Snackbar>
