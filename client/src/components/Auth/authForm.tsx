@@ -1,4 +1,6 @@
-import React, { useState, FormEvent } from 'react';
+// ваш компонент AuthForm.tsx
+import React, { useState, FormEvent, ChangeEvent } from 'react';
+
 import {
   Button,
   TextField,
@@ -7,25 +9,57 @@ import {
   Link,
   Box,
 } from '@mui/material';
+import { registerUser } from '../../services/apiClient';
+
+
+interface FormData {
+  username?: string;
+  email: string;
+  password: string;
+}
 
 const AuthForm: React.FC = () => {
   const [isRegister, setIsRegister] = useState<boolean>(false);
-  const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [passwordMatchError, setPasswordMatchError] = useState<boolean>(false);
+  const [formData, setFormData] = useState<FormData>({
+    username: '',
+    email: '',
+    password: '',
+  });
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const resetForm = () => {
+    return {
+      username: '',
+      email: '',
+      password: '',
+    };
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Проверка совпадения паролей при регистрации
-    if (isRegister && confirmPassword !== e.currentTarget.password.value) {
-      setPasswordMatchError(true);
-      return;
+    try {
+      await registerUser({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      console.log('Регистрация успешна');
+
+      // Очистить форму
+      setFormData(resetForm);
+
+    } catch (error) {
+      console.error('Ошибка при регистрации:', error);
+      // Обработка ошибок при регистрации
     }
-
-    // Здесь можно добавить логику для отправки данных на сервер
-
-    // Если логика на сервере успешно выполнена, сбросьте ошибку совпадения паролей
-    setPasswordMatchError(false);
   };
 
   return (
@@ -48,8 +82,10 @@ const AuthForm: React.FC = () => {
               required
               fullWidth
               label="Имя"
-              name="name"
-              autoComplete="name"
+              name="username"
+              autoComplete="username"
+              value={formData.username}
+              onChange={handleChange}
             />
           )}
           <TextField
@@ -60,6 +96,8 @@ const AuthForm: React.FC = () => {
             name="email"
             type="email"
             autoComplete="email"
+            value={formData.email}
+            onChange={handleChange}
           />
           <TextField
             margin="normal"
@@ -69,22 +107,9 @@ const AuthForm: React.FC = () => {
             name="password"
             type="password"
             autoComplete="current-password"
+            value={formData.password}
+            onChange={handleChange}
           />
-          {isRegister && (
-            <>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                label="Подтвердите пароль"
-                name="confirmPassword"
-                type="password"
-                error={passwordMatchError}
-                helperText={passwordMatchError ? 'Пароли не совпадают' : ''}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </>
-          )}
           <Button
             type="submit"
             fullWidth
