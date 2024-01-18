@@ -69,7 +69,7 @@ const AuthForm: React.FC = () => {
       setAlertData({
         open: true,
         severity: 'error',
-        message: 'Ошибка при регистрации. Пожалуйста, попробуйте ещё раз.',
+        message: 'Error during registration. Please form again.',
       });
     }
   };
