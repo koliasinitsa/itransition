@@ -1,5 +1,5 @@
 // ваш компонент AuthForm.tsx
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { useState, FormEvent, ChangeEvent, useEffect } from 'react';
 
 import {
   Button,
@@ -10,7 +10,7 @@ import {
   Box,
 } from '@mui/material';
 import { registerUser } from '../../services/apiClient';
-
+import CustomAlert from '../Alert/Alert';
 
 interface FormData {
   username?: string;
@@ -41,26 +41,46 @@ const AuthForm: React.FC = () => {
     }));
   };
 
+  const [alertData, setAlertData] = useState({
+    open: false,
+    severity: 'success' as 'success' | 'error',
+    message: '',
+  });
+
+  const handleCloseAlert = () => {
+    setAlertData((prevData) => ({ ...prevData, open: false }));
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     try {
-      await registerUser({
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
+      await registerUser(formData);
+  
+      setAlertData({
+        open: true,
+        severity: 'success',
+        message: 'User registered successfully',
       });
-
-      console.log('Регистрация успешна');
-
+  
       // Очистить форму
       setFormData(resetForm);
-
-    } catch (error) {
-      console.error('Ошибка при регистрации:', error);
-      // Обработка ошибок при регистрации
+    } catch (error: any) {
+      setAlertData({
+        open: true,
+        severity: 'error',
+        message: 'Ошибка при регистрации. Пожалуйста, попробуйте ещё раз.',
+      });
     }
   };
+
+  useEffect(() => {
+    setAlertData({
+      open: false,
+      severity: 'success',
+      message: '',
+    });
+  }, [isRegister]);
 
   return (
     <Container component="main" maxWidth="xs">
@@ -127,6 +147,14 @@ const AuthForm: React.FC = () => {
               ? 'Уже есть аккаунт? Войти'
               : 'Нет аккаунта? Зарегистрироваться'}
           </Link>
+
+          {/* Добавляем компонент для вывода alert'ов */}
+          <CustomAlert
+            open={alertData.open}
+            severity={alertData.severity}
+            message={alertData.message}
+            onClose={handleCloseAlert}
+          />
         </Box>
       </Box>
     </Container>
