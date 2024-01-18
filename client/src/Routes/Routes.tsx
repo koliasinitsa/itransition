@@ -1,10 +1,10 @@
 // Routes.tsx
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import AuthForm from '../Auth/AuthForm';
-import HomePage from '../Home/HomePage';
-import UsersTable from '../UsersTable/UsersTable';
-import Profile from '../Profile/Profile';
+import AuthForm from '../components/Auth/AuthForm';
+import HomePage from '../components/Home/HomePage';
+import UsersTable from '../components/UsersTable/UsersTable';
+import Profile from '../components/Profile/Profile';
 
 const AppRoutes: React.FC = () => {
   return (

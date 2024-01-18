@@ -10,10 +10,22 @@ import {
 
 const AuthForm: React.FC = () => {
   const [isRegister, setIsRegister] = useState<boolean>(false);
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [passwordMatchError, setPasswordMatchError] = useState<boolean>(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Проверка совпадения паролей при регистрации
+    if (isRegister && confirmPassword !== e.currentTarget.password.value) {
+      setPasswordMatchError(true);
+      return;
+    }
+
     // Здесь можно добавить логику для отправки данных на сервер
+
+    // Если логика на сервере успешно выполнена, сбросьте ошибку совпадения паролей
+    setPasswordMatchError(false);
   };
 
   return (
@@ -59,14 +71,19 @@ const AuthForm: React.FC = () => {
             autoComplete="current-password"
           />
           {isRegister && (
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Подтвердите пароль"
-              name="confirmPassword"
-              type="password"
-            />
+            <>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                label="Подтвердите пароль"
+                name="confirmPassword"
+                type="password"
+                error={passwordMatchError}
+                helperText={passwordMatchError ? 'Пароли не совпадают' : ''}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </>
           )}
           <Button
             type="submit"

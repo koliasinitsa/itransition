@@ -1,7 +1,7 @@
 // App.tsx
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import AppRoutes from './components/Routes/Routes';
+import AppRoutes from './Routes/Routes';
 
 
 const App: React.FC = () => {
