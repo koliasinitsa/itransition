@@ -1,5 +1,7 @@
 import React, { useState,  } from 'react';
 import { Container, Box, Typography, Link } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
 import LoginForm from './LoginForm';
 import RegistrationForm from './RegistrationForm';
 import CustomAlert from '../Alert/Alert';
@@ -17,7 +19,6 @@ interface AlertData {
   message: string;
 }
 
-// ...
 
 const AuthForm: React.FC = () => {
   const [isRegister, setIsRegister] = useState<boolean>(false);
@@ -26,6 +27,7 @@ const AuthForm: React.FC = () => {
     severity: 'info',
     message: '',
   });
+  const navigate = useNavigate();
 
   const handleCloseAlert = () => {
     setAlertData((prevAlertData) => ({
@@ -61,6 +63,7 @@ const AuthForm: React.FC = () => {
         severity: 'success',
         message: 'Login successful!',
       });
+      navigate('/');
     } catch (error) {
       setAlertData({
         open: true,

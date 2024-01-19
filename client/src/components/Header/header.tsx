@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
+// import jwt, { JwtPayload } from 'jsonwebtoken';
 
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,11 +17,38 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import SearchPanel from './Search-panel/SearchPanel';
 import LanguageSelector from './LanguageSelector';
 
+
+// interface DecodedToken extends JwtPayload {
+//     userId: number;
+//     email: string;
+//     role: string;
+//     iat: number;
+//     exp: number;
+// }
+
 const Header: React.FC = () => {
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-    const [userMenuOpen, setUserMenuOpen] = React.useState(false);
+    const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+    const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [role, setRole] = useState<string | null>(null);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = Cookies.get('token');
+        if (token) {
+            try {
+                const decodedToken = JSON.parse(atob(token.split('.')[1]));
+                setRole(decodedToken.role);
+            } catch (error) {
+                // Обработка ошибок при декодировании токена
+                console.error('Error decoding token:', error);
+            }
+            setIsAuthenticated(true);
+        }
+    }, []);
+     // Пустой массив зависимостей для запуска эффекта только один раз при монтировании
+
 
     const handleUserMenuClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
@@ -31,7 +60,14 @@ const Header: React.FC = () => {
         setUserMenuOpen(false);
     };
 
-    const isAuthenticated = true // есть пользователь или нет, заглушка
+    const handleLogoutClick = () => {
+        Cookies.remove('token');
+        setIsAuthenticated(false);
+        setRole(null);
+        handleCloseUserMenu();
+    };
+
+    //onst isAuthenticated = false // есть пользователь или нет, заглушка
     const handleLoginClick = () => {
         navigate('/AuthForm');  // Перенаправление на компонент AuthForm
     };
@@ -95,10 +131,12 @@ const Header: React.FC = () => {
                         <Link to="/Profile" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
                         </Link>
-                        <Link to="/Users" style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <MenuItem >Users</MenuItem>
-                        </Link>
-                        <MenuItem onClick={handleLoginClick}>Logout</MenuItem>
+                        {role === 'admin' && (
+                            <Link to="/Users" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                <MenuItem>Users</MenuItem>
+                            </Link>
+                        )}
+                        <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
                     </Menu>
                 </div>
             </Toolbar>
