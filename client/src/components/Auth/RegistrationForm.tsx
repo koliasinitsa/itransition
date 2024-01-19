@@ -30,6 +30,11 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSubmit }) => {
         e.preventDefault();
         // Добавьте валидацию данных по желанию
         await onSubmit(formData); // Вызываем onSubmit с объектом formData
+        setFormData({ // Очищаем форму после успешной отправки
+            username: '',
+            email: '',
+            password: '',
+        });
     };
 
 
