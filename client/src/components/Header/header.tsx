@@ -18,13 +18,6 @@ import SearchPanel from './Search-panel/SearchPanel';
 import LanguageSelector from './LanguageSelector';
 
 
-// interface DecodedToken extends JwtPayload {
-//     userId: number;
-//     email: string;
-//     role: string;
-//     iat: number;
-//     exp: number;
-// }
 
 const Header: React.FC = () => {
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);

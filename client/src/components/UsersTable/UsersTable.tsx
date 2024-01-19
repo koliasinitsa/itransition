@@ -49,52 +49,79 @@ const UsersTable: React.FC = () => {
     );
   };
 
+  const handleAddToAdmin = () => {
+    // Логика для добавления выделенных пользователей в админы
+    console.log('Добавить в админы', selectedUsers);
+  };
+
+  const handleDeleteFromAdmin = () => {
+    // Логика для удаления выделенных пользователей из админов
+    console.log('Удалить из админов', selectedUsers);
+  };
+
+  const handleBlock = () => {
+    // Логика для блокировки выделенных пользователей
+    console.log('Блокировать', selectedUsers);
+  };
+
+  const handleUnblock = () => {
+    // Логика для разблокировки выделенных пользователей
+    console.log('Разблокировать', selectedUsers);
+  };
+
+  const handleDelete = () => {
+    // Логика для удаления выделенных пользователей
+    console.log('Удалить', selectedUsers);
+  };
+
   return (
     <div >
       <Header />
       <div style={{ marginTop: '100px' }}>
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ marginRight: '10px' }}
-          onClick={() => console.log('Добавить в админы')}
-        >
-          {t('addToAdmin')}
-          
-        </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        sx={{ marginRight: '10px' }}
+        onClick={handleAddToAdmin}
+      >
+        {t('addToAdmin')}
+      </Button>
 
-        <Button
-          variant="contained"
-          color="error"
-          sx={{ marginRight: '10px' }}
-          onClick={() => console.log('Удалить из админов')}
-        >
-          Удалить из админов
-        </Button>
-        <Button
-          variant="contained"
-          color="warning"
-          sx={{ marginRight: '10px' }}
-          onClick={() => console.log('Блокировать')}
-        >
-          Блокировать
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{ marginRight: '10px' }}
-          onClick={() => console.log('Разблокировать')}
-        >
-          Разблокировать
-        </Button>
-        <Button
-          variant="contained"
-          color="error"
-          sx={{ marginRight: '10px' }}
-          onClick={() => console.log('Удалить')}
-        >
-          Удалить
-        </Button>
+      <Button
+        variant="contained"
+        color="error"
+        sx={{ marginRight: '10px' }}
+        onClick={handleDeleteFromAdmin}
+      >
+        {t('deleteFromAdmin')}
+      </Button>
+
+      <Button
+        variant="contained"
+        color="warning"
+        sx={{ marginRight: '10px' }}
+        onClick={handleBlock}
+      >
+        {t('Blocked')}
+      </Button>
+
+      <Button
+        variant="contained"
+        color="primary"
+        sx={{ marginRight: '10px' }}
+        onClick={handleUnblock}
+      >
+        {t('UnBlocked')}
+      </Button>
+
+      <Button
+        variant="contained"
+        color="error"
+        sx={{ marginRight: '10px' }}
+        onClick={handleDelete}
+      >
+        {t('Deleted')}
+      </Button>
       </div>
 
       <Table>
@@ -107,10 +134,10 @@ const UsersTable: React.FC = () => {
                 onChange={handleSelectAll}
               />
             </TableCell>
-            <TableCell>Имя</TableCell>
-            <TableCell>Имейл</TableCell>
-            <TableCell>Статус</TableCell>
-            <TableCell>Роль</TableCell>
+            <TableCell>{t('Name')}</TableCell>
+            <TableCell>{t('Email')}</TableCell>
+            <TableCell>{t('Status')}</TableCell>
+            <TableCell>{t('Role')}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
