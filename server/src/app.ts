@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 
 
 import authRoutes from './routes/AuthRoutes';
+import userRoutes from './routes/UserRoutes';
 
 dotenv.config(); // Загрузка переменных окружения из файла .env
 
@@ -24,6 +25,7 @@ app.use(express.json());
 
 // Routes
 app.use('/auth', authRoutes);
+app.use('/api', userRoutes);
 
 // Error handling middleware
 app.use((err: ErrorRequestHandler, req: express.Request, res: express.Response, next: express.NextFunction) => {
