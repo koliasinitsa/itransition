@@ -7,7 +7,7 @@ import UserController from '../controllers/UserController';
 const router = Router();
 
 router.get('/users', UserController.getAllUsers);
-router.put('/users/:id', UserController.deleteUser);
+router.delete('/users/:id', UserController.deleteUser);
 router.put('/users/block/:id', UserController.blockUser);
 router.put('/users/unblock/:id', UserController.unblockUser);
 router.put('/users/add-admin/:id', UserController.addAdmin);

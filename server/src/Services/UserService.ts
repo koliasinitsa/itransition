@@ -11,9 +11,8 @@ class UserService {
   }
 
   async deleteUserById(userId: number) {
-    return prisma.users.update({
+    return prisma.users.delete({
       where: { id: userId },
-      data: { status: 'deleted' },
     });
   }
 
