@@ -14,6 +14,7 @@ const JWT_SECRET: string = process.env.JWT_SECRET || '';
 
 export const registerUserService = async (username: string, email: string, password: string) => {
   try {
+    
     // Генерация рандомной соли для каждого пользователя
     const salt = bcrypt.genSaltSync(saltRounds);
 
@@ -45,6 +46,10 @@ export const authenticateUserService = async (email: string, password: string) =
 
     if (!user) {
       throw new Error('User not found');
+    }
+
+    if (user.status === 'blocked' ) {
+      throw new Error('user is blocked');
     }
 
     // Использование bcrypt.compare для сравнения паролей
