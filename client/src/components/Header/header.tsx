@@ -14,6 +14,7 @@ import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
+
 import SearchPanel from './Search-panel/SearchPanel';
 import LanguageSelector from './LanguageSelector';
 
@@ -40,7 +41,7 @@ const Header: React.FC = () => {
             setIsAuthenticated(true);
         }
     }, []);
-     // Пустой массив зависимостей для запуска эффекта только один раз при монтировании
+    // Пустой массив зависимостей для запуска эффекта только один раз при монтировании
 
 
     const handleUserMenuClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -65,8 +66,10 @@ const Header: React.FC = () => {
         navigate('/AuthForm');  // Перенаправление на компонент AuthForm
     };
 
+    
+
     return (
-        <AppBar position="fixed">
+        <AppBar position="fixed" >
             <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div style={{ display: 'flex', alignItems: 'center', }}>
                     <Link to="/" style={{ marginRight: '100px' }}>

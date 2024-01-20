@@ -25,7 +25,7 @@ const UsersTable: React.FC = () => {
         const fetchedUsers: User[] = await getAllUsers();  
         const users: User[] = fetchedUsers.map((users) => ({
           id: users.id,
-          name: users.name,
+          username: users.username,
           email: users.email,
           status: users.status,
           role: users.role,
@@ -189,7 +189,7 @@ const UsersTable: React.FC = () => {
                   onChange={() => handleSelectUser(user.id)}
                 />
               </TableCell>
-              <TableCell>{user.name}</TableCell>
+              <TableCell>{user.username}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.status}</TableCell>
               <TableCell>{user.role}</TableCell>
