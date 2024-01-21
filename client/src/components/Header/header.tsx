@@ -125,11 +125,11 @@ const Header: React.FC = () => {
                         open={userMenuOpen}
                         onClose={handleCloseUserMenu}
                     >
-                        <Link to="/Profile" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Link to="/UserProfile" style={{ textDecoration: 'none', color: 'inherit' }}>
                             <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
                         </Link>
                         {role === 'admin' && (
-                            <Link to="/Users" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <Link to="/UsersTable" style={{ textDecoration: 'none', color: 'inherit' }}>
                                 <MenuItem>Users</MenuItem>
                             </Link>
                         )}
