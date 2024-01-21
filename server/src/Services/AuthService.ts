@@ -60,6 +60,7 @@ export const authenticateUserService = async (email: string, password: string) =
       const token = jwt.sign(
         {
           userId: user.id,
+          username: user.username,
           email: user.email,
           role: user.role, // Добавляем информацию о роли пользователя
         },
