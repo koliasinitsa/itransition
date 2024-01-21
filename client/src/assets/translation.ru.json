@@ -10,5 +10,8 @@
   "Name": "Имя",
   "Email": "Почта",
   "Status": "Статус",
-  "Role": "Роль"
+  "Role": "Роль",
+  "userNameToken": "Имя пользователя",
+  "userEmailToken": "Почта",
+  "userRoleToken": "Роль"
 }

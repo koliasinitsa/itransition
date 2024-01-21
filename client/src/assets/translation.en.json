@@ -10,5 +10,8 @@
   "Name": "Name",
   "Email": "Email",
   "Status": "Status",
-  "Role": "Role"
+  "Role": "Role",
+  "userNameToken": "User name",
+  "userEmailToken": "Email",
+  "userRoleToken": "Role"
 }

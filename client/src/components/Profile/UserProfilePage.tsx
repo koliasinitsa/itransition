@@ -28,9 +28,9 @@ const UserProfilePage: React.FC = () => {
     <div>
       <Header />
       <div style={{ marginTop: '100px' }}>
-      <h2>{t('addToAdmin')} {userToken?.username}</h2>
-        <p>{t('addToAdmin')} {userToken?.email}</p>
-        <p>{t('addToAdmin')} {userToken?.role}</p>
+      <h2>{t('userNameToken')} - {userToken?.username}</h2>
+        <p>{t('userEmailToken')}: {userToken?.email}</p>
+        <p>{t('userRoleToken')}: {userToken?.role}</p>
       </div>
     </div>
   );
