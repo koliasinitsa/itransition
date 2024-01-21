@@ -59,11 +59,12 @@ const Header: React.FC = () => {
         setIsAuthenticated(false);
         setRole(null);
         handleCloseUserMenu();
+        navigate('/');
     };
 
     //onst isAuthenticated = false // есть пользователь или нет, заглушка
     const handleLoginClick = () => {
-        navigate('/AuthForm');  // Перенаправление на компонент AuthForm
+        navigate('/AuthForm'); 
     };
 
     
