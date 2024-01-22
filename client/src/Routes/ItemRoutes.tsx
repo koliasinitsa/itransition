@@ -10,8 +10,8 @@ import ItemCard from '../components/Items/ItemCard';
 const ItemRoutes: React.FC = () => {
   return (
     <Routes>
-      <Route path="/create" element={<CreateItemForm />} />
-      <Route path="/edit/:itemId" element={<EditItemForm />} />
+      <Route path="/create" element={<CreateItemForm onSubmit={(formData) => console.log(formData)} />} />
+      <Route path="/edit-item/:id" element={<EditItemForm />} />
       <Route path="/comments-likes/:itemId" element={<CommentsAndLikes />} />
       <Route path="/tag-cloud" element={<TagCloud />} />
       <Route path="/:itemId" element={<ItemCard />} />

@@ -12,9 +12,9 @@ import CollectionList from '../Collections/CollectionList';
 
 
 const fakeCollections = [
-  { id: '1', name: 'Books Collection', itemsCount: 10 },
-  { id: '2', name: 'Stamp Collection', itemsCount: 5 },
-  { id: '3', name: 'Whisky Collection', itemsCount: 8 },
+  { id: '1', name: 'Books Collection', itemsCount: 10, username: 'qwerty' },
+  { id: '2', name: 'Stamp Collection', itemsCount: 5, username: 'qwerty2'  },
+  { id: '3', name: 'Whisky Collection', itemsCount: 8, username: 'qwerty3'  },
 ];
 
 const UserProfilePage: React.FC = () => {
@@ -49,7 +49,7 @@ const UserProfilePage: React.FC = () => {
         </div>
         <Divider />
         <div className={styles.collectionList}>
-          <Typography variant="h4">{t('myCollectionsTitle')}</Typography>
+          <Typography variant="h4">{t('myCollections')}</Typography>
           <CollectionList collections={fakeCollections} />
         </div>
       </Container>

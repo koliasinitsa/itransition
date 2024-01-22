@@ -12,14 +12,17 @@ const CollectionList: React.FC<CollectionListProps> = ({ collections }) => {
     <div>
       {collections && collections.length > 0 ? (
         collections.map(collection => (
-          <Link to={`/CollectionPage/${collection.id}`} key={collection.id} style={{ textDecoration: 'none' }}>
-            <Card variant="outlined" style={{ marginBottom: '10px' }}>
+          <Link to={`/Collections/${collection.id}`} key={collection.id} style={{ textDecoration: 'none' }}>
+            <Card variant="outlined" style={{ marginBottom: '10px', display: 'flex', justifyContent: 'space-between' }}>
               <CardActionArea>
                 <CardContent>
                   <Typography variant="h5">{collection.name}</Typography>
-                  <Typography variant="body2">Items: {collection.itemsCount}</Typography>
+                  <Typography variant="body2">Author: {collection.username}</Typography>
                 </CardContent>
               </CardActionArea>
+              <CardContent style={{ marginLeft: '-100px' }}>
+                <Typography variant="body2">Items: {collection.itemsCount}</Typography>
+              </CardContent>
             </Card>
           </Link>
         ))
