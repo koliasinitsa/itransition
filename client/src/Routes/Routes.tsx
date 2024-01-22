@@ -16,8 +16,8 @@ const AppRoutes: React.FC = () => {
       <Route path="/AuthForm" element={<AuthForm />} />
       <Route path="/UsersTable" element={<UsersTable />} />
       <Route path="/UserProfile" element={<UserProfilePage />} />
-      <Route path="/items/*" element={<ItemRoutes />} />
-      <Route path="/collections/*" element={<CollectionRoutes />} /> 
+      <Route path="/Items/*" element={<ItemRoutes />} />
+      <Route path="/Collections/*" element={<CollectionRoutes />} /> 
     </Routes>
   );
 };

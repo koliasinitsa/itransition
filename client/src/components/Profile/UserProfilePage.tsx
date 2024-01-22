@@ -1,13 +1,21 @@
 // src/components/Profile/UserProfilePage.tsx
 import React, { useEffect, useState } from 'react';
-import Header from '../Header/Header';
-import { Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
-
+import Header from '../Header/Header';
 import { Token } from '../../interfaces/token';
 import { useTranslation } from 'react-i18next';
+import { Button, Container, Divider, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import styles from './UserProfilePage.module.css';
+import CollectionList from '../Collections/CollectionList';
 
+
+const fakeCollections = [
+  { id: '1', name: 'Books Collection', itemsCount: 10 },
+  { id: '2', name: 'Stamp Collection', itemsCount: 5 },
+  { id: '3', name: 'Whisky Collection', itemsCount: 8 },
+];
 
 const UserProfilePage: React.FC = () => {
   const { t } = useTranslation();
@@ -23,15 +31,28 @@ const UserProfilePage: React.FC = () => {
     }
   }, []);
 
-  //console.log(decodedToken)
   return (
     <div>
       <Header />
-      <div style={{ marginTop: '100px' }}>
-      <h2>{t('userNameToken')} - {userToken?.username}</h2>
-        <p>{t('userEmailToken')}: {userToken?.email}</p>
-        <p>{t('userRoleToken')}: {userToken?.role}</p>
-      </div>
+      <Container className={styles.container}>
+        <div>
+          <div className={styles.userInfo}>
+            <Typography variant="h2">{t('userNameToken')} - {userToken?.username}</Typography>
+            <Typography variant="body1">{t('userEmailToken')}: {userToken?.email}</Typography>
+            <Typography variant="body1">{t('userRoleToken')}: {userToken?.role}</Typography>
+          </div>
+          <Link to="/collections/create" style={{ textDecoration: 'none' }}>
+            <Button className={styles.createCollectionButton} variant="contained" color="primary">
+              Создать коллекцию
+            </Button>
+          </Link>
+        </div>
+        <Divider />
+        <div className={styles.collectionList}>
+          <Typography variant="h4">{t('myCollectionsTitle')}</Typography>
+          <CollectionList collections={fakeCollections} />
+        </div>
+      </Container>
     </div>
   );
 };
