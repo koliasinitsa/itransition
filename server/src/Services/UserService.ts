@@ -9,6 +9,11 @@ class UserService {
   async getAllUsers() {
     return prisma.users.findMany();
   }
+  async getUserById(userId: number) {
+      return prisma.users.findUnique({
+        where: { id: userId },
+      });
+  }
 
   async deleteUserById(userId: number) {
     return prisma.users.delete({

@@ -6,6 +6,7 @@ import UserController from '../controllers/UserController';
 
 const router = Router();
 
+router.get('/users/:id', UserController.getUser);
 router.get('/users', UserController.getAllUsers);
 router.delete('/users/:id', UserController.deleteUser);
 router.put('/users/block/:id', UserController.blockUser);

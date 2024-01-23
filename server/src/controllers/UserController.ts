@@ -10,6 +10,13 @@ class UserController {
     res.json(users);
   }
 
+  async getUser(req: Request, res: Response) {
+    const userId = parseInt(req.params.id, 10);
+    const user = await UserService.getUserById(userId);
+    res.status(200).json(user);
+  }
+
+
   async deleteUser(req: Request, res: Response) {
     const userId = parseInt(req.params.id, 10);
     await UserService.deleteUserById(userId);
