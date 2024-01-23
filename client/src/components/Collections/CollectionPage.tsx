@@ -38,7 +38,7 @@ const CollectionPage: React.FC = () => {
           <Typography variant="h5">Author:</Typography>
           <ItemTable items={items} onEdit={handleEditItem} onDelete={handleDeleteItem} />
           <Divider />
-          <Link to={`/collections/${id}/create`} style={{ textDecoration: 'none' }}>
+          <Link to={`/Items/${id}/create`} style={{ textDecoration: 'none' }}>
             <Button variant="contained" color="primary">
               Create New Item
             </Button>
