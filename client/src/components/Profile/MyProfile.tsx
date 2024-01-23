@@ -17,7 +17,7 @@ const fakeCollections = [
   { id: '3', name: 'Whisky Collection', itemsCount: 8, username: 'qwerty3'  },
 ];
 
-const UserProfilePage: React.FC = () => {
+const MyProfile: React.FC = () => {
   const { t } = useTranslation();
   const [userToken, setUserToken] = useState<Token | undefined>(undefined);
 
@@ -57,4 +57,4 @@ const UserProfilePage: React.FC = () => {
   );
 };
 
-export default UserProfilePage;
+export default MyProfile;
