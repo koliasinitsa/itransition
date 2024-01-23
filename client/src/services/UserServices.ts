@@ -74,3 +74,14 @@ export const removeAdmin = async (userIds: number[]): Promise<void> => {
         throw new Error('Failed to remove admin role from users');
     }
 };
+
+// Получение информации о пользователе по ID
+export const getUserDetailsById = async (userId: number): Promise<User> => {
+    try {
+        const response: AxiosResponse<User> = await axios.get(`${API_BASE_URL}/api/users/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user details by ID:', error);
+        throw new Error('Failed to fetch user details by ID');
+    }
+};

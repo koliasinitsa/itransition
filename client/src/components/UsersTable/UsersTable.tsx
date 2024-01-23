@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import Header from '../Header/Header';
 import { User } from '../../interfaces/user';
 import { getAllUsers, deleteUser, blockUser, unblockUser, addAdmin, removeAdmin } from '../../services/UserServices';
+import { Link } from 'react-router-dom';
 
 
 const UsersTable: React.FC = () => {
@@ -22,7 +23,7 @@ const UsersTable: React.FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const fetchedUsers: User[] = await getAllUsers();  
+        const fetchedUsers: User[] = await getAllUsers();
         const users: User[] = fetchedUsers.map((users) => ({
           id: users.id,
           username: users.username,
@@ -36,7 +37,7 @@ const UsersTable: React.FC = () => {
         // Обработка ошибок загрузки пользователей
       }
     };
-  
+
     fetchUsers();
   }, []);
   // Пустой массив зависимостей, чтобы эффект выполнялся только при монтировании компонента
@@ -193,6 +194,14 @@ const UsersTable: React.FC = () => {
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.status}</TableCell>
               <TableCell>{user.role}</TableCell>
+              <TableCell>
+                {/* Используем Link для перехода на страницу профиля */}
+                <Link to={`/userProfile/${user.id}`}>
+                  <Button variant="outlined">
+                    {t('View')}
+                  </Button>
+                </Link>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

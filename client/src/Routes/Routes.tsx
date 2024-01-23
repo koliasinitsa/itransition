@@ -8,6 +8,7 @@ import UsersTable from '../components/UsersTable/UsersTable';
 import ItemRoutes from './ItemRoutes';
 import CollectionRoutes from './CollectionRoutes';
 import MyProfile from '../components/Profile/MyProfile';
+import UserProfilePage from '../components/UsersTable/UserProfilePage';
 
 const AppRoutes: React.FC = () => {
   return (
@@ -16,6 +17,8 @@ const AppRoutes: React.FC = () => {
       <Route path="/AuthForm" element={<AuthForm />} />
       <Route path="/UsersTable" element={<UsersTable />} />
       <Route path="/MyProfile" element={<MyProfile />} />
+      <Route path="/userProfile/:userId" element={<UserProfilePage/>} />
+
       <Route path="/Items/*" element={<ItemRoutes />} />
       <Route path="/Collections/*" element={<CollectionRoutes />} /> 
     </Routes>

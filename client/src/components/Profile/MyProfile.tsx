@@ -7,7 +7,7 @@ import { Token } from '../../interfaces/token';
 import { useTranslation } from 'react-i18next';
 import { Button, Container, Divider, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import styles from './UserProfilePage.module.css';
+import styles from './MyProfile.module.css';
 import CollectionList from '../Collections/CollectionList';
 
 
