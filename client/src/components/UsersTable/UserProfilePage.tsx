@@ -10,6 +10,7 @@ const UserProfilePage: React.FC = () => {
     const fetchUserDetails = async () => {
       try {
         // Проверяем, существует ли userId перед его использованием
+        
         if (userId) {
           // Преобразуем userId из строки в число
           const userIdAsNumber = parseInt(userId, 10);
