@@ -26,7 +26,6 @@ const UserProfilePage: React.FC = () => {
     fetchUserDetails();
   }, [userId]);
 
-
   return (
     <div>
       <h1>User Profile Page</h1>
