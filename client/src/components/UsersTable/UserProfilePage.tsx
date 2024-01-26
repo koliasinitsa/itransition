@@ -48,7 +48,7 @@ const UserProfilePage: React.FC = () => {
           </div>
         )}
         <div >
-          <Typography variant="h4">{t('myCollections')}</Typography>
+          <Typography variant="h4">{t('Collections')}</Typography>
           <CollectionList collections={collections} />
         </div>
       </Container>

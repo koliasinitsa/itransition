@@ -17,7 +17,7 @@ const CollectionList: React.FC<CollectionListProps> = ({ collections }) => {
               <CardActionArea>
                 <CardContent>
                   <Typography variant="h5">{collection.name}</Typography>
-                  <Typography variant="body2">Сategory_id: {collection.category_id}</Typography>
+                  <Typography variant="body2">Категория: {collection.category.category_name}</Typography>
                 </CardContent>
               </CardActionArea>
               <CardContent style={{ marginLeft: '-100px' }}>

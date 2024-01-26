@@ -18,7 +18,11 @@ class CollectionServices {
                     description: true,
                     image_url: true,
                     user_id: true,
-                    category_id: true,
+                    category: {
+                        select: {
+                            category_name: true,
+                        }
+                    },
                   },
             });
             return collections;

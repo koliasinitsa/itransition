@@ -14,11 +14,6 @@ import { Collection } from '../../interfaces/Collections';
 import { getCollectionsByUserId } from '../../services/CollectionServices';
 
 
-// const fakeCollections = [
-//   { id: '1', name: 'Books Collection', itemsCount: 10, username: 'qwerty' },
-//   { id: '2', name: 'Stamp Collection', itemsCount: 5, username: 'qwerty2' },
-//   { id: '3', name: 'Whisky Collection', itemsCount: 8, username: 'qwerty3' },
-// ];
 
 const MyProfile: React.FC = () => {
   const { t } = useTranslation();
