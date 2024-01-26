@@ -49,7 +49,7 @@ const MyProfile: React.FC = () => {
           </Link>
         </div>
         <Divider />
-        <div className={styles.collectionList}>
+        <div >
           <Typography variant="h4">{t('myCollections')}</Typography>
           <CollectionList collections={fakeCollections} />
         </div>

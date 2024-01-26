@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom';
 import CreateCollectionForm from '../components/Collections/CreateCollectionForm';
 import CollectionList from '../components/Collections/CollectionList';
 import CollectionPage from '../components/Collections/CollectionPage';
-import EditCollectionForm from '../components/Collections/EditCollectionForm';
 
 const CollectionRoutes: React.FC = () => {
   return (
@@ -12,7 +11,6 @@ const CollectionRoutes: React.FC = () => {
       <Route path="/create" element={<CreateCollectionForm />} />
       <Route path="/collectionsList" element={<CollectionList />} />
       <Route path="/:id" element={<CollectionPage />} />
-      <Route path="/edit/:id" element={<EditCollectionForm />} />
     </Routes>
   );
 }
