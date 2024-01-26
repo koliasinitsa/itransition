@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import RegistrationForm from './RegistrationForm';
 import CustomAlert from '../Alert/Alert';
-import { loginUser, registerUser } from '../../services/AuthService';
+import { loginUser, registerUser } from '../../services/AuthServices';
 
 interface FormData {
   username?: string;

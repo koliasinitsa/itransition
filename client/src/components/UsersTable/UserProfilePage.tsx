@@ -6,28 +6,34 @@ import { t } from 'i18next';
 import CollectionList from '../Collections/CollectionList';
 import Header from '../Header/Header';
 import styles from '../Profile/MyProfile.module.css';
+import { getCollectionsByUserId } from '../../services/CollectionServices';
+import { Collection } from '../../interfaces/Collections';
+import { User } from '../../interfaces/user';
 
-const fakeCollections = [
-  { id: '1', name: 'Books Collection', itemsCount: 10, username: 'qwerty' },
-  { id: '2', name: 'Stamp Collection', itemsCount: 5, username: 'qwerty2' },
-  { id: '3', name: 'Whisky Collection', itemsCount: 8, username: 'qwerty3' },
-];
+
+
+
+// const fakeCollections = [
+//   { id: '1', name: 'Books Collection', itemsCount: 10, username: 'qwerty' },
+//   { id: '2', name: 'Stamp Collection', itemsCount: 5, username: 'qwerty2' },
+//   { id: '3', name: 'Whisky Collection', itemsCount: 8, username: 'qwerty3' },
+// ];
 
 const UserProfilePage: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();
-  const [userDetails, setUserDetails] = useState<any>(null);
+  const [userDetails, setUserDetails] = useState<User | null>(null);
+  const [collections, setCollections] = useState<Collection[]>([]);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        // Проверяем, существует ли userId перед его использованием
-
         if (userId) {
-          // Преобразуем userId из строки в число
           const userIdAsNumber = parseInt(userId, 10);
-          // Вызываем новый метод для получения информации о пользователе по ID
           const userData = await getUserDetailsById(userIdAsNumber);
           setUserDetails(userData);
+          const collectionsData = await getCollectionsByUserId(parseInt(userId, 10));
+          console.log(collectionsData)
+          setCollections(collectionsData);
         }
       } catch (error) {
         console.error('Error fetching user details:', error);
@@ -52,7 +58,7 @@ const UserProfilePage: React.FC = () => {
         )}
         <div >
           <Typography variant="h4">{t('myCollections')}</Typography>
-          <CollectionList collections={fakeCollections} />
+          <CollectionList collections={collections} />
         </div>
       </Container>
 

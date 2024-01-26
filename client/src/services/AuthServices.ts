@@ -4,7 +4,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:3000', // Замените на ваш адрес сервера
+  baseURL: 'http://localhost:3000', 
   headers: {
     'Content-Type': 'application/json',
   },
