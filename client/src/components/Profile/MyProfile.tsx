@@ -9,6 +9,7 @@ import { Button, Container, Divider, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import styles from './MyProfile.module.css';
 import CollectionList from '../Collections/CollectionList';
+import { getDecodedToken } from '../../services/TokenServices';
 
 
 const fakeCollections = [
@@ -24,7 +25,7 @@ const MyProfile: React.FC = () => {
   useEffect(() => {
     const token = Cookies.get('token');
     if (token) {
-      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      const decodedToken = getDecodedToken();
       setUserToken(decodedToken);
     } else {
       console.error('Token is undefined or not present.');
