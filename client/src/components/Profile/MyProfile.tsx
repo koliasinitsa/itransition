@@ -10,26 +10,39 @@ import { Link } from 'react-router-dom';
 import styles from './MyProfile.module.css';
 import CollectionList from '../Collections/CollectionList';
 import { getDecodedToken } from '../../services/TokenServices';
+import { Collection } from '../../interfaces/Collections';
+import { getCollectionsByUserId } from '../../services/CollectionServices';
 
 
-const fakeCollections = [
-  { id: '1', name: 'Books Collection', itemsCount: 10, username: 'qwerty' },
-  { id: '2', name: 'Stamp Collection', itemsCount: 5, username: 'qwerty2'  },
-  { id: '3', name: 'Whisky Collection', itemsCount: 8, username: 'qwerty3'  },
-];
+// const fakeCollections = [
+//   { id: '1', name: 'Books Collection', itemsCount: 10, username: 'qwerty' },
+//   { id: '2', name: 'Stamp Collection', itemsCount: 5, username: 'qwerty2' },
+//   { id: '3', name: 'Whisky Collection', itemsCount: 8, username: 'qwerty3' },
+// ];
 
 const MyProfile: React.FC = () => {
   const { t } = useTranslation();
   const [userToken, setUserToken] = useState<Token | undefined>(undefined);
+  const [collections, setCollections] = useState<Collection[]>([]);
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      const decodedToken = getDecodedToken();
-      setUserToken(decodedToken);
-    } else {
-      console.error('Token is undefined or not present.');
-    }
+    const fetchUserDetails = async () => {
+      const token = Cookies.get('token');
+      if (token) {
+        const decodedToken = getDecodedToken();
+        setUserToken(decodedToken);
+        try {
+          const collectionsData = await getCollectionsByUserId(decodedToken.userId);
+          setCollections(collectionsData);
+        } catch (error) {
+          console.error('Error fetching user details:', error);
+        }
+      } else {
+        console.error('Token is undefined or not present.');
+      }
+    };
+
+    fetchUserDetails();
   }, []);
 
   return (
@@ -51,7 +64,7 @@ const MyProfile: React.FC = () => {
         <Divider />
         <div >
           <Typography variant="h4">{t('myCollections')}</Typography>
-          <CollectionList collections={fakeCollections} />
+          <CollectionList collections={collections} />
         </div>
       </Container>
     </div>
