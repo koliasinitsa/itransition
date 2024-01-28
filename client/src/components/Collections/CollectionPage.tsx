@@ -1,32 +1,30 @@
-// src/components/Collections/CollectionPage.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Typography, Divider, Button, Container } from '@mui/material';
-import ItemTable from '../Items/ItemTable';
+import { Typography, Divider, Button, Container, CircularProgress } from '@mui/material';
 import Header from '../Header/Header';
-
-
-interface Item {
-  id: string;
-  name: string;
-  description: string;
-}
+import { getItemByCollectionId } from '../../services/ItemServices'; // Импортируем функцию для получения данных из сервиса
+import ItemCard from '../Items/ItemCard';
 
 const CollectionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [items, setItems] = useState<Item[]>([
-    { id: '1', name: 'Item 1', description: 'Description 1' },
-    { id: '2', name: 'Item 2', description: 'Description 2' },
-    { id: '3', name: 'Item 3', description: 'Description 3' },
-  ]);
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const handleEditItem = (itemId: string) => {
-    console.log(`Editing item with ID: ${itemId}`);
-  };
+  useEffect(() => {
+    // Функция для загрузки данных из сервиса при монтировании компонента
+    async function fetchItems() {
+      try {
+        const data = await getItemByCollectionId(parseInt(id));
+        setItems(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch items:', error);
+        setLoading(false);
+      }
+    }
 
-  const handleDeleteItem = (itemId: string) => {
-    console.log(`Deleting item with ID: ${itemId}`);
-  };
+    fetchItems(); // Вызываем функцию загрузки данных
+  }, [id]); // Передаем id в зависимости, чтобы запрос выполнялся при изменении id
 
   return (
     <div>
@@ -35,14 +33,31 @@ const CollectionPage: React.FC = () => {
         <div>
           <Typography variant="h4">Collection  Page  ID: {id}</Typography>
           <Divider />
-          <Typography variant="h5">Author:</Typography>
-          <ItemTable items={items} onEdit={handleEditItem} onDelete={handleDeleteItem} />
           <Divider />
-          <Link to={`/Items/${id}/create`} style={{ textDecoration: 'none' }}>
-            <Button variant="contained" color="primary">
-              Create New Item
-            </Button>
-          </Link>
+          <div>
+            {/* Вывод айтемов */}
+            {loading ? ( // Показываем индикатор загрузки, пока данные загружаются
+              <CircularProgress />
+            ) : (
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
+                {items.map((item: any) => (
+                  <ItemCard
+                    key={item.id}
+                    itemName={item.name}
+                    collection={`Collection: ${item.collection.name}`}
+                    fullPageLink={`/items/${item.id}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+          <div>
+            <Link to={`/Items/${id}/create`} style={{ textDecoration: 'none' }}>
+              <Button variant="contained" color="primary">
+                Create New Item
+              </Button>
+            </Link>
+          </div>
         </div>
       </Container>
     </div>
