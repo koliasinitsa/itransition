@@ -20,7 +20,23 @@ class ItemServices {
             });
             return items;
         } catch (error) {
-            throw new Error('Failed to fetch collections by user ID');
+            throw new Error('Failed to fetch items by collections ID');
+        }
+    }
+
+    async getAllItems() {
+        try {
+            const items = await prisma.items.findMany({
+                // отправляем не все данные, а только эти
+                select: {
+                    id: true,
+                    name: true,
+                    collection_id: true,
+                  },
+            });
+            return items;
+        } catch (error) {
+            throw new Error('Failed to fetch items by collections ID');
         }
     }
 }
