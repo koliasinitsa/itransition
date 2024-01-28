@@ -13,3 +13,12 @@ export async function getItemByCollectionId(collectionsId: number) {
     throw new Error('Failed to fetch collections');
   }
 }
+
+export async function getAllItem() {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/api/items`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to fetch collections');
+  }
+}

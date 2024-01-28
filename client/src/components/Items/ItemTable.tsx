@@ -3,8 +3,15 @@
 import React from 'react';
 import { Grid } from '@mui/material';
 import ItemCard from './ItemCard';
+import { Item } from '../../interfaces/item';
 
-const ItemTable = ({ items }) => {
+
+
+interface ItemTableProps {
+  items: Item[];
+}
+
+const ItemTable: React.FC<ItemTableProps> = ({ items }) => {
   return (
     <Grid container spacing={2}>
       {items.map((item) => (

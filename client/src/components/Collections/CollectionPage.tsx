@@ -13,7 +13,7 @@ const CollectionPage: React.FC = () => {
   useEffect(() => {
     async function fetchItems() {
       try {
-        const data = await getItemByCollectionId(parseInt(id));
+        const data = await getItemByCollectionId(parseInt(id!));
         setItems(data);
         setLoading(false);
       } catch (error) {
