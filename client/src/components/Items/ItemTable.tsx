@@ -1,61 +1,18 @@
 // src/components/Items/ItemTable.tsx
+
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Table, TableHead, TableRow, TableCell, TableBody, IconButton, Tooltip } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Grid } from '@mui/material';
+import ItemCard from './ItemCard';
 
-interface ItemTableProps {
-  items: any[];
-  onDelete: (itemId: string) => void;
-}
-
-const ItemTable: React.FC<ItemTableProps> = ({ items, onDelete }) => {
+const ItemTable = ({ items }) => {
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>Name</TableCell>
-          <TableCell>Description</TableCell>
-          <TableCell>Actions</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {items.map((item) => (
-          <TableRow key={item.id}>
-            <TableCell>{item.name}</TableCell>
-            <TableCell>{item.description}</TableCell>
-            <TableCell>
-              {/* Link to view the item */}
-              <Tooltip title="View">
-                <Link to={`/Items/${item.id}`} style={{ textDecoration: 'none' }}>
-                  <IconButton>
-                    <VisibilityIcon />
-                  </IconButton>
-                </Link>
-              </Tooltip>
-
-              {/* Link to edit the item */}
-              <Tooltip title="Edit">
-                <Link to={`/Items/edit-item/${item.id}`} style={{ textDecoration: 'none' }}>
-                  <IconButton>
-                    <EditIcon />
-                  </IconButton>
-                </Link>
-              </Tooltip>
-
-              {/* Delete button */}
-              <Tooltip title="Delete">
-                <IconButton onClick={() => onDelete(item.id)}>
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <Grid container spacing={2}>
+      {items.map((item) => (
+        <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
+          <ItemCard itemName={item.name} collection={`Collection: ${item.collection.name}`} fullPageLink={`/items/${item.id}`} />
+        </Grid>
+      ))}
+    </Grid>
   );
 };
 

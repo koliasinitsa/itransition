@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Typography, Divider, Button, Container, CircularProgress } from '@mui/material';
 import Header from '../Header/Header';
-import { getItemByCollectionId } from '../../services/ItemServices'; // Импортируем функцию для получения данных из сервиса
-import ItemCard from '../Items/ItemCard';
+import { getItemByCollectionId } from '../../services/ItemServices';
+import ItemTable from '../Items/ItemTable';
 
 const CollectionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -11,7 +11,6 @@ const CollectionPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // Функция для загрузки данных из сервиса при монтировании компонента
     async function fetchItems() {
       try {
         const data = await getItemByCollectionId(parseInt(id));
@@ -23,32 +22,21 @@ const CollectionPage: React.FC = () => {
       }
     }
 
-    fetchItems(); // Вызываем функцию загрузки данных
-  }, [id]); // Передаем id в зависимости, чтобы запрос выполнялся при изменении id
+    fetchItems();
+  }, [id]);
 
   return (
     <div>
       <Header />
       <Container style={{ marginTop: 100 }}>
         <div>
-          <Typography variant="h4">Collection  Page  ID: {id}</Typography>
-          <Divider />
+          <Typography variant="h4">Collection Page ID: {id}</Typography>
           <Divider />
           <div>
-            {/* Вывод айтемов */}
-            {loading ? ( // Показываем индикатор загрузки, пока данные загружаются
+            {loading ? (
               <CircularProgress />
             ) : (
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
-                {items.map((item: any) => (
-                  <ItemCard
-                    key={item.id}
-                    itemName={item.name}
-                    collection={`Collection: ${item.collection.name}`}
-                    fullPageLink={`/items/${item.id}`}
-                  />
-                ))}
-              </div>
+              <ItemTable items={items} />
             )}
           </div>
           <div>
