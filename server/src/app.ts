@@ -9,6 +9,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/AuthRoutes';
 import userRoutes from './routes/UserRoutes';
 import collectionRoutes from './routes/Collection.route';
+import Itemsrouter from './routes/ItemRoutes';
 
 dotenv.config(); // Загрузка переменных окружения из файла .env
 
@@ -28,6 +29,8 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', collectionRoutes);
+app.use('/api', Itemsrouter);
+
 
 // Error handling middleware
 app.use((err: ErrorRequestHandler, req: express.Request, res: express.Response, next: express.NextFunction) => {
