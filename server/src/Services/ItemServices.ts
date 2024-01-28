@@ -16,7 +16,12 @@ class ItemServices {
                     id: true,
                     name: true,
                     collection_id: true,
-                  },
+                    collection: {
+                        select: {
+                            name: true
+                        }
+                    }
+                },
             });
             return items;
         } catch (error) {
@@ -32,7 +37,12 @@ class ItemServices {
                     id: true,
                     name: true,
                     collection_id: true,
-                  },
+                    collection: {
+                        select: {
+                            name: true
+                        }
+                    }
+                },
             });
             return items;
         } catch (error) {
