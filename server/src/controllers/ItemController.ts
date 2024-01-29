@@ -21,6 +21,16 @@ class ItemsController {
             res.status(500).json({ error: 'Error getting items by collectionsId' });
         }
     }
+
+    async getItemById(req: Request, res: Response) {
+        try {
+            const itemId = parseInt(req.params.itemId, 10);
+            const items = await ItemServices.getItemById(itemId);
+            res.status(200).json(items);
+        } catch (error) {
+            res.status(500).json({ error: 'Error getting items by Id' });
+        }
+    }
 }
 
 export default new ItemsController;
