@@ -1,15 +1,11 @@
-// src/components/Items/ItemCardProfile.tsx
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, Button, TextField } from '@mui/material';
-import { Link, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
+// import { getItemById } from '../../services/ItemServices';
+// import { Item } from '../../interfaces/item';
 
-interface ItemCardProfileProps {
-  itemId?: string;
-  itemName?: string;
-  itemDescription?: string;
-}
-
-const ItemCardProfile: React.FC<ItemCardProfileProps> = () => {
+const ItemCardProfile: React.FC = () => {
+  // const [item, setItem] = useState<Item | null>(null);
   const [comment, setComment] = useState('');
   const [likes, setLikes] = useState(0);
   const { itemId } = useParams<{ itemId: string }>();
@@ -27,34 +23,26 @@ const ItemCardProfile: React.FC<ItemCardProfileProps> = () => {
   return (
     <Card
       style={{
-        width: '60%', // Процент от ширины экрана
-        margin: '0 auto', // Центрируем компонент
+        width: '60%',
+        margin: '0 auto',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         textAlign: 'center',
         height: '400px',
         justifyContent: 'space-between',
-        padding: '20px', // Добавляем отступ для красивого вида
+        padding: '20px',
       }}
     >
       <CardContent style={{ width: '100%' }}>
-        {/* Внутренний контент компонента */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-          <Typography variant="h5" component="div">
-            Item ID: {itemId}
-          </Typography>
+            <Typography variant="h5" component="div">
+              Item ID: {itemId}
+            </Typography>
           <Button variant="contained" color="primary" onClick={handleLikeClick}>
             Like ({likes})
           </Button>
         </div>
-        <Typography variant="h6" style={{ width: '100%', marginTop: '10px' }}>
-          {/*itemName*/}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" style={{ width: '100%', marginTop: '10px' }}>
-          {/*itemDescription*/}
-        </Typography>
-
         <form onSubmit={handleCommentSubmit} style={{ width: '100%', marginTop: '10px' }}>
           <TextField
             label="Leave a comment"
@@ -74,7 +62,6 @@ const ItemCardProfile: React.FC<ItemCardProfileProps> = () => {
         </form>
       </CardContent>
     </Card>
-
   );
 };
 

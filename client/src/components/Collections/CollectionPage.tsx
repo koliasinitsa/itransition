@@ -4,10 +4,11 @@ import { Typography, Divider, Button, Container, CircularProgress } from '@mui/m
 import Header from '../Header/Header';
 import { getItemByCollectionId } from '../../services/ItemServices';
 import ItemTable from '../Items/ItemTable';
+import { Item } from '../../interfaces/item';
 
 const CollectionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {

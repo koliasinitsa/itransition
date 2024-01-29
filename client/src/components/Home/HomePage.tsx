@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
     <div className="App">
       <Header />
       <div className="content" style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ maxWidth: '80%', width: '100%' }}>
+        <div style={{ maxWidth: '80%', marginTop: '80px', width: '100%' }}>
           <h2>Items Table</h2>
           <ItemTable items={items} />
         </div>
