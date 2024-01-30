@@ -2,10 +2,11 @@
 FROM node:latest
 
 # Set the working directory
-WORKDIR /app/server
+WORKDIR /server
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+COPY package.json package-lock.json ./
+
 
 # Install dependencies
 RUN npm install
@@ -20,4 +21,4 @@ COPY . .
 EXPOSE 3000
 
 # Command to run the server
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
