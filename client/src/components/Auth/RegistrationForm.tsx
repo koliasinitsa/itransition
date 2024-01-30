@@ -28,7 +28,6 @@ const RegistrationForm: React.FC<RegistrationFormProps> = ({ onSubmit }) => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        // Добавьте валидацию данных по желанию
         await onSubmit(formData); // Вызываем onSubmit с объектом formData
         setFormData({ // Очищаем форму после успешной отправки
             username: '',

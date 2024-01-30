@@ -38,7 +38,7 @@ const AuthForm: React.FC = () => {
 
   const handleRegistrationSubmit = async (formData: FormData) => {
     try {
-      // Вызываем функцию registerUser из вашего сервиса с данными formData
+      // Вызываем функцию registerUser  сервиса с данными formData
       await registerUser(formData);
       setAlertData({
         open: true,
@@ -56,7 +56,7 @@ const AuthForm: React.FC = () => {
 
   const handleLoginSubmit = async (formData: FormData) => {
     try {
-      // Вызываем функцию loginUser из вашего сервиса с данными formData
+      // Вызываем функцию loginUser  сервиса с данными formData
       await loginUser(formData.email, formData.password);
       setAlertData({
         open: true,

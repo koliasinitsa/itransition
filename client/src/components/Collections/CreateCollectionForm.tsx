@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { TextField, Button, FormControlLabel, Checkbox, FormGroup, Grid, Paper } from '@mui/material';
 import { CollectionFormData } from '../../interfaces/CollectionFormData';
 
-
-
 const initialFormData: CollectionFormData = {
   name: '',
   image_url: '',
@@ -40,7 +38,6 @@ const CreateCollectionForm: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Add logic to submit data to the backend or perform other actions
     console.log(formData);
   };
 
@@ -78,7 +75,6 @@ const CreateCollectionForm: React.FC = () => {
               value={formData.category_id}
               onChange={handleInputChange('category_id')}
             />
-            {/* Add other fields based on your table structure */}
             <FormGroup>
               <FormControlLabel
                 control={
@@ -98,8 +94,6 @@ const CreateCollectionForm: React.FC = () => {
                 />
               )}
 
-              {/* Add similar blocks for other custom fields */}
-              {/* Custom String 2 */}
               <FormControlLabel
                 control={
                   <Checkbox
@@ -118,7 +112,6 @@ const CreateCollectionForm: React.FC = () => {
                 />
               )}
 
-              {/* Custom String 3 */}
               <FormControlLabel
                 control={
                   <Checkbox
@@ -137,7 +130,6 @@ const CreateCollectionForm: React.FC = () => {
                 />
               )}
 
-              {/* Add similar blocks for other custom fields */}
             </FormGroup>
             <Button type="submit" variant="contained" color="primary">
               Create Collection

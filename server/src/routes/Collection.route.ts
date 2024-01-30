@@ -1,6 +1,6 @@
 // routes/collection.route.ts
 import express from 'express';
-import CollectionController from '../controllers/Collection.controller';
+import CollectionController from '../controllers/Collectioncontroller';
 
 const router = express.Router();
 

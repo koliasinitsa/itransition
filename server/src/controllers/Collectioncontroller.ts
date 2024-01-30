@@ -1,6 +1,6 @@
 // controllers/collection.controller.ts
 import { Request, Response } from 'express';
-import CollectionServices from '../Services/Collection.service';
+import CollectionServices from '../Services/Collectionservice';
 
 
 class CollectionController {

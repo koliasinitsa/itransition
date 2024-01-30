@@ -17,7 +17,6 @@ export const registerUser = async (req: Request, res: Response) => {
 
     res.status(201).json({ message: 'User registered successfully', user });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -33,7 +32,6 @@ export const login = async (req: Request, res: Response) => {
     // Возвращение успешного ответа с данными пользователя или токеном
     res.status(200).json({ user, message: 'Authentication successful' });
   } catch (error) {
-    console.error(error);
     res.status(401).json({ error: 'Authentication failed' });
   }
 };

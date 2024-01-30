@@ -35,7 +35,6 @@ const Header: React.FC = () => {
                 const decodedToken = JSON.parse(atob(token.split('.')[1]));
                 setRole(decodedToken.role);
             } catch (error) {
-                // Обработка ошибок при декодировании токена
                 console.error('Error decoding token:', error);
             }
             setIsAuthenticated(true);

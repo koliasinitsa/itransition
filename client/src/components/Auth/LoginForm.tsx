@@ -26,7 +26,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
-        // Добавьте валидацию данных по желанию
         await onSubmit(formData); // Вызываем onSubmit с объектом formData
     };
 
